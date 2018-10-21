@@ -3,7 +3,8 @@
   "linterOptions": {
     "exclude": [
       "config/**/*.js",
-      "node_modules/**/*.ts"
+      "node_modules/**/*.ts",
+      "src/schema/index.ts"
     ]
   },
   "rules": {
@@ -20,6 +21,7 @@
     ],
     "object-literal-sort-keys": false,
     "ordered-imports": false,
-    "interface-name": false
+    "interface-name": false,
+    "semicolon": [true, "never"]
   }
 }

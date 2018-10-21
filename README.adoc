@@ -5,7 +5,7 @@
 ```
 npm install
 npm run build
-node ./node_modules/.bin/micro
+npm run start
 ```
 
 == TypeScript Schema Generation

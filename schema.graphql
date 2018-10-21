@@ -1,0 +1,12 @@
+schema {
+    query: Query
+}
+
+type Query {
+    randomAddress: Address
+}
+
+type Address {
+    id: ID!
+    name: String!
+}

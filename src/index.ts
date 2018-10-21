@@ -1,16 +1,20 @@
-import { ApolloServer, gql } from 'apollo-server-micro'
+import { ApolloServer, gql, IResolvers } from 'apollo-server-micro'
+import { importSchema } from 'graphql-import'
+import { GQLAddress, GQLResolver } from 'src-gen/schema'
 
-const typeDefs = gql`
-    type Query {
-        hello: String
-    }
-`;
+const schema = importSchema('schema.graphql')
+const typeDefs = gql`${schema}`
 
 const resolvers = {
     Query: {
-        hello: () => 'Hello GraphQL'
+        randomAddress: (): GQLAddress => {
+            return {
+                id: 'xyz',
+                name: 'Totoro'
+            }
+        }
     }
-};
+} as GQLResolver & IResolvers
 
-const apolloServer = new ApolloServer({ typeDefs, resolvers });
-module.exports = apolloServer.createHandler();
+const apolloServer = new ApolloServer({ typeDefs, resolvers })
+module.exports = apolloServer.createHandler()

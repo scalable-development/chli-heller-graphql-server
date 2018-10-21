@@ -5,10 +5,11 @@ schema {
 
 type Query {
     randomAddress: Address
+    getAddress(id: ID!): Address
 }
 
 type Mutation {
-    createAddress(input: AddressInput): Address
+    createAddress(input: AddressInput!): Address
 }
 
 input AddressInput {

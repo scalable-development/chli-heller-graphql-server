@@ -1,6 +1,6 @@
 import { ApolloServer, gql, IResolvers } from 'apollo-server-micro'
 import { importSchema } from 'graphql-import'
-import { GQLAddress, GQLResolver, MutationToCreateAddressArgs } from './schema'
+import { GQLAddress, GQLResolver, MutationToCreateAddressArgs, QueryToGetAddressArgs } from './schema'
 import { GraphQLResolveInfo } from 'graphql'
 import uuid = require('uuid')
 
@@ -11,6 +11,19 @@ const addressDatabase: Map<string, GQLAddress> = new Map<string, GQLAddress>()
 
 const resolvers = {
     Query: {
+        getAddress: (parent: any, args: QueryToGetAddressArgs, context: any, info: GraphQLResolveInfo): GQLAddress => {
+            if (args && args.id) {
+                const id = args.id
+                const address = addressDatabase.get(id)
+                if (address) {
+                    return address
+                } else {
+                    throw new Error(`No address with id \'${id}\'`)
+                }
+            } else {
+                throw new Error('Query \'getAddress\' is missing \'id\' argument')
+            }
+        },
         randomAddress: (): GQLAddress => {
             const allAddresses = Array.from(addressDatabase.values())
             return allAddresses[Math.floor(Math.random() * allAddresses.length)]
@@ -28,7 +41,7 @@ const resolvers = {
 
                 return address
             } else {
-                throw new Error('Mutation \'createAddress\' is missing input arguments')
+                throw new Error('Mutation \'createAddress\' is missing \'input\' argument')
             }
         }
     }

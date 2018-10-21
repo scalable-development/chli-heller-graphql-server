@@ -10,6 +10,7 @@ import { GraphQLResolveInfo } from 'graphql';
  *******************************/
 export interface GQLQuery {
   randomAddress?: GQLAddress;
+  getAddress?: GQLAddress;
 }
 
 export interface GQLAddress {
@@ -42,10 +43,18 @@ export interface GQLResolver {
 }
 export interface GQLQueryTypeResolver<TParent = any> {
   randomAddress?: QueryToRandomAddressResolver<TParent>;
+  getAddress?: QueryToGetAddressResolver<TParent>;
 }
 
 export interface QueryToRandomAddressResolver<TParent = any, TResult = GQLAddress|Promise<GQLAddress>> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface QueryToGetAddressArgs {
+  id: string;
+}
+export interface QueryToGetAddressResolver<TParent = any, TResult = GQLAddress|Promise<GQLAddress>> {
+  (parent: TParent, args: QueryToGetAddressArgs, context: any, info: GraphQLResolveInfo): TResult;
 }
 
 export interface GQLAddressTypeResolver<TParent = any> {
@@ -66,7 +75,7 @@ export interface GQLMutationTypeResolver<TParent = any> {
 }
 
 export interface MutationToCreateAddressArgs {
-  input?: GQLAddressInput;
+  input: GQLAddressInput;
 }
 export interface MutationToCreateAddressResolver<TParent = any, TResult = GQLAddress|Promise<GQLAddress>> {
   (parent: TParent, args: MutationToCreateAddressArgs, context: any, info: GraphQLResolveInfo): TResult;

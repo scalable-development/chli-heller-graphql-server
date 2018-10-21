@@ -13,7 +13,7 @@ node ./node_modules/.bin/micro
 Generate TS types from `schema.graphql`:
 
 ```
-npm run gen
+npm run generate-ts-schema
 ```
 
 == CURL

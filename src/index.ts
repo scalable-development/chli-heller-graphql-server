@@ -1,8 +1,8 @@
 import { ApolloServer, gql, IResolvers } from 'apollo-server-micro'
 import { importSchema } from 'graphql-import'
-import { GQLAddress, GQLResolver } from 'src-gen/schema'
+import { GQLAddress, GQLResolver } from './schema'
 
-const schema = importSchema('schema.graphql')
+const schema = importSchema('src/schema/schema.graphql')
 const typeDefs = gql`${schema}`
 
 const resolvers = {

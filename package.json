@@ -10,7 +10,7 @@
   "scripts": {
     "build": "tsc",
     "start": "micro",
-    "gen": "graphql-schema-typescript generate-ts schema.graphql --output src-gen/schema.d.ts"
+    "generate-ts-schema": "graphql-schema-typescript generate-ts src/schema/schema.graphql --output src/schema/index.ts"
   },
   "dependencies": {
     "apollo-server-micro": "^2.0.0-rc.10",

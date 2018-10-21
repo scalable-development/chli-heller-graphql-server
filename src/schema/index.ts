@@ -17,6 +17,14 @@ export interface GQLAddress {
   name: string;
 }
 
+export interface GQLMutation {
+  createAddress?: GQLAddress;
+}
+
+export interface GQLAddressInput {
+  name: string;
+}
+
 /*********************************
  *                               *
  *         TYPE RESOLVERS        *
@@ -30,6 +38,7 @@ export interface GQLAddress {
 export interface GQLResolver {
   Query?: GQLQueryTypeResolver;
   Address?: GQLAddressTypeResolver;
+  Mutation?: GQLMutationTypeResolver;
 }
 export interface GQLQueryTypeResolver<TParent = any> {
   randomAddress?: QueryToRandomAddressResolver<TParent>;
@@ -50,4 +59,15 @@ export interface AddressToIdResolver<TParent = any, TResult = string|Promise<str
 
 export interface AddressToNameResolver<TParent = any, TResult = string|Promise<string>> {
   (parent: TParent, args: {}, context: any, info: GraphQLResolveInfo): TResult;
+}
+
+export interface GQLMutationTypeResolver<TParent = any> {
+  createAddress?: MutationToCreateAddressResolver<TParent>;
+}
+
+export interface MutationToCreateAddressArgs {
+  input?: GQLAddressInput;
+}
+export interface MutationToCreateAddressResolver<TParent = any, TResult = GQLAddress|Promise<GQLAddress>> {
+  (parent: TParent, args: MutationToCreateAddressArgs, context: any, info: GraphQLResolveInfo): TResult;
 }

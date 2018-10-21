@@ -1,9 +1,18 @@
 schema {
     query: Query
+    mutation: Mutation
 }
 
 type Query {
     randomAddress: Address
+}
+
+type Mutation {
+    createAddress(input: AddressInput): Address
+}
+
+input AddressInput {
+    name: String!
 }
 
 type Address {
